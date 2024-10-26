@@ -66,10 +66,12 @@ void *worker() {
 
         int fd = buffer[out];
         out = (out + 1) % numThread;
-        process(fd);
 
         sem_post(&mutex);
         sem_post(&empty);
+        process(fd);
+
+
     }
 
 }
