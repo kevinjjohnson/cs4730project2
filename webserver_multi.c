@@ -92,11 +92,6 @@ void thread_control(int numThreads) {
         pthread_create(&workerThreads[i], NULL, worker, NULL);
     }
 
-
-
-
-
-
     pthread_join(listenerThread, NULL);
 
     for(int i = 0; i < numThreads; i++) {

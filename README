@@ -1,0 +1,20 @@
+Kevin Johnson  
+
+b. I implemented the solution to the bounded buffer problem. In order to test my solution I used
+the provided client program and tested with various numbers of threads.
+
+c.
+my shared data structures are:
+1. numThread - the number of threads there are, also serves as the size of the buffer
+2. buffer - the actual buffer of file descriptors
+3. semaphors - there are 3 shared semaphors used for access restriction
+4. in/out - these are the indexes that the threads should put in/take out file descriptors from the buffer
+
+my solution prevents concurrency problems by using 3 different semaphors. The mutex semaphor is used to make sure 
+that only one thread accesses the buffer at a time. the full semaphor is used to represent how many full slots there
+are in the buffer at any time. This semaphor is increased when another request is added via the listener. The empty 
+sempahore is used to represent how many empty slots there are in the buffer at any time. This semaphor is increased 
+after a thread chooses a request from the buffer to process. The listener only is able to add when empty is > 0 and the
+workers can only take when full > 0. To test my code against deadlocks I ran it multiple different time with large numbers of threads
+on the client side to make sure the buffer would be full and not deadlock. To test against race conditions i verified that no
+two threads handle the same request, showing how 2 threads cant access the same data.
