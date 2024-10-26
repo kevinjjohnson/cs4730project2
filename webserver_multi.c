@@ -59,7 +59,6 @@ void *listener()
 }
 
 void *worker() {
-    printf("worker thread created\n");
     while(1){
         sem_wait(&full);
         sem_wait(&mutex);
@@ -70,10 +69,7 @@ void *worker() {
         sem_post(&mutex);
         sem_post(&empty);
         process(fd);
-
-
     }
-
 }
 
 void thread_control(int numThreads) {
@@ -83,8 +79,6 @@ void thread_control(int numThreads) {
     sem_init(&mutex, 0, 1);
     sem_init(&full, 0, 0);
     sem_init(&empty, 0, numThreads);
-
-
 
     pthread_create(&listenerThread, NULL, listener, NULL);
 
